@@ -33,7 +33,7 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased px-2 md:px-5`}
         >
-          <header className="text-white font-bold bg-green-900 text-2xl flex items-center content-between p-2">
+          <header className="text-white font-bold bg-green-700 text-2xl flex items-center content-between p-2 mb-3 rounded-b-lg shadow-gray-700 shadow-lg">
             <div className="flex flex-grow">
               <Link href="/">GPT Chat</Link>
               <Link href="/about" className="ml-5 font-light">
