@@ -3,6 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
 
+import { SessionProvider } from "./components/SessionProvider";
+import UserButton from "./components/UserButton";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -25,20 +28,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased px-2 md:px-5`}
-      >
-        <header className="text-white font-bold bg-green-900 text-2xl">
-          <div className="flex flex-grow">
-            <Link href="/">GPT Chat</Link>
-            <Link href="/about" className="ml-5 font-light">
-              About
-            </Link>
+    <SessionProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased px-2 md:px-5`}
+        >
+          <header className="text-white font-bold bg-green-900 text-2xl flex items-center content-between p-2">
+            <div className="flex flex-grow">
+              <Link href="/">GPT Chat</Link>
+              <Link href="/about" className="ml-5 font-light">
+                About
+              </Link>
+            </div>
+            <div>
+              <UserButton />
+            </div>
+          </header>
+          <div className="flex flex-col md:flex-row">
+            <div className="flex-grow">
+              {children}
+            </div>
           </div>
-        </header>
-        {children}
-      </body>
-    </html>
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
