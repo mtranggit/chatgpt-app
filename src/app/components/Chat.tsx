@@ -3,16 +3,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Message } from "../../../types";
 import { getCompletion } from "../actions/getCompletion";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 
-export default function Chat() {
-	const [messages, setMessages] = useState<Message[]>([]);
+export default function Chat({
+	id = null, 
+	messages: initialMessages = []
+}: {
+	id?: number | null;
+	messages?: Message[];
+}) {
+	const [messages, setMessages] = useState<Message[]>(initialMessages);
 	const [message, setMessage] = useState<string>("");
+	const chatId = useRef<number | null>(id);
+
+	const router = useRouter();
 
 	const onClick = async () => {
 		// Handle the send button click
-		const completions = await getCompletion([
+		const completions = await getCompletion(chatId.current,
+			[
 			...messages,
 			{
 				role: "user",
@@ -20,6 +31,13 @@ export default function Chat() {
 			}
 		]);
 
+		if (chatId.current === null) {
+			router.push(`/chats/${completions.id}`);
+			router.refresh();
+		}
+
+		chatId.current = completions.id;
+		
 		setMessages(completions.messages);
 		setMessage("");
 	};
