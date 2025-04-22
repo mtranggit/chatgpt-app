@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Message } from "../../../types";
+import { Message } from "../../types";
 import { getCompletion } from "../actions/getCompletion";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";

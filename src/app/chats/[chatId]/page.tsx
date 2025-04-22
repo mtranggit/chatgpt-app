@@ -23,7 +23,7 @@ export default async function ChatDetail({
 
   return (
     <main className="pt-5">
-      <Chat id={+chatId} messages={chat?.messages || []} key={chatId} />
+      <Chat id={+chatId} messages={chat?.messages || []} key={+chatId} />
     </main>
   );
 }
