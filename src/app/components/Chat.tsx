@@ -5,6 +5,7 @@ import { Message } from "../../types";
 import { getCompletion } from "../actions/getCompletion";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Transcript from "./Transcript";
 
 
 export default function Chat({
@@ -45,18 +46,10 @@ export default function Chat({
 
 	return (
 		<div className="flex flex-col">
-			{messages.map((message, index) => (
-				<div key={index} className={`mb-5 flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'}`}>
-					<div className={`${message.role === "user" ? "bg-blue-500" : "bg-gray-500 text-black"
-            } rounded-md py-2 px-8`}
-						>						
-						{message.content}
-					</div>
-				</div>
-			))}
+			<Transcript messages={messages} truncate={false} />	
 			{/* <form className="flex mt-3" onSubmit={() => {}}> */}
 				<Input
-					className="flex-grow text-xl"
+					className="flex-grow text-xl mt-3"
 					placeholder="Question"
 					autoFocus
 					value={message}
