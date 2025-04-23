@@ -2,12 +2,12 @@ import { getChatsWithMessages } from "@/db";
 import { getServerSession } from "next-auth";
 import Transcript from "./Transcript";
 import { Separator } from "@/components/ui/separator";
+import { getMyDefaultEmail } from "@/lib/utils";
 
 export default async function PreviousChats() {
 	const session = await getServerSession();
 
-	// ensure it's me only 🥳
-	const userEmail = session?.user?.name === "Michael Trang" ? "michael.trang@hotmail.com" : "";
+	const userEmail = getMyDefaultEmail(session?.user?.name || "");
 
 	const chats = await getChatsWithMessages(userEmail);
 
